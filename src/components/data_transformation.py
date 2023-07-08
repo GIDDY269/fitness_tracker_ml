@@ -35,12 +35,15 @@ class Data_transform:
             acc_set = 1
             gyr_set = 1
 
+            
+
             for f in data_files:
-                participants = f.split('-')[0].lstrip('../../artifacts/MetaMotion/')
+                participants = f.split('-')[0].lstrip('../../artifacts/MetaMotion/').split('\\')[2]
                 category = f.split('-')[2].rstrip('123').rstrip('_MetaWear_2019') 
                 label = f.split('-')[1]
 
                 df = pd.read_csv(f)
+
 
                 df['participants'] = participants
                 df['category'] = category
@@ -60,8 +63,20 @@ class Data_transform:
 
 
             # converting time columns to datetime
-            acc_df.index = pd.to_datetime(acc_df['epoch (ms)']) # converting unix time to datetime and seting it as index
-            gyr_df.index = pd.to_datetime(gyr_df['epoch (ms)'])
+            acc_df.index = pd.to_datetime(acc_df['epoch (ms)'],unit='ms') # converting unix time to datetime and seting it as index
+            gyr_df.index = pd.to_datetime(gyr_df['epoch (ms)'],unit='ms')
+
+
+
+
+            logging.info(f'min acc time{acc_df.index.min()}')
+            logging.info(f'min acc time{acc_df.index.max()}')
+            logging.info(f'min gyr time{gyr_df.index.min()}')
+            logging.info(f'min gyr time{gyr_df.index.max()}')
+
+
+
+
 
             logging.info('created accelerometer and gyroscope dataframes')   
                 # deleting time,epoch and elaspe column
@@ -71,7 +86,10 @@ class Data_transform:
                 del gyr_df[col]  
                 del acc_df[col]
 
-            data_merge = pd.concat([acc_df.iloc[:,0:3],gyr_df],axis=1)
+            data_merge = pd.concat([acc_df.iloc[:,:3],gyr_df],axis=1)
+            logging.info(len(data_merge))
+            logging.info(data_merge.index.min())
+            logging.info(data_merge.index.max())
 
             data_merge.columns = [
                 'acc_x',
@@ -101,13 +119,22 @@ class Data_transform:
                 'set' : 'last'
             }
 
-            days = [g for n,g in data_merge.groupby(pd.Grouper(freq='D'))] #splitting the dataframe by day
+            daily_data = data_merge.groupby(pd.Grouper(freq='D')) #splitting the dataframe by day
+            logging.info(len(daily_data))
+            # Iterate over the groups and process each day's data
+            data_resample = pd.DataFrame()
+            for day, day_data in daily_data:
+                resample_day_data = day_data.resample(rule='200ms').apply(sampling).dropna()
+                logging.info(resample_day_data)
+                data_resample = pd.concat([data_resample, resample_day_data])  # Assign the concatenated result back to data_resample
 
-            data_resample = pd.concat([df.resample(rule='200ms').apply(sampling).dropna() for df in days]) #resampling it for each day
-            logging.info('resampling dataframe')
+            logging.info(len(data_resample))
+            logging.info(data_resample.columns)
 
             data_resample['set'] = data_resample['set'].astype('int')
             data_resample.to_pickle('artifacts/transformed_data.pkl')
+
+            logging.info('data transformation and processing complete')
 
             return self.transform_config.transformed_datapath
         

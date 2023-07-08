@@ -1,0 +1,22 @@
+[ 2023-07-08 15:06:15,979] 21 root - INFO - Initiating data ingestion
+[ 2023-07-08 15:06:15,981] 35 root - INFO - this file already exist
+[ 2023-07-08 15:06:15,981] 36 root - INFO - Unziping data
+[ 2023-07-08 15:06:16,402] 40 root - INFO - Unzip completed
+[ 2023-07-08 15:06:16,403] 24 root - INFO - initiating data_transformation
+[ 2023-07-08 15:06:16,406] 28 root - INFO - The total number of files : 187
+[ 2023-07-08 15:06:19,196] 66 root - INFO - created accelerometer and gyroscope dataframes
+[ 2023-07-08 15:06:19,213] 75 root - INFO - 69677
+[ 2023-07-08 15:06:19,213] 76 root - INFO - 1970-01-01 00:25:47.219284950
+[ 2023-07-08 15:06:19,213] 77 root - INFO - 1970-01-01 00:25:48.005713702
+[ 2023-07-08 15:06:19,230] 108 root - INFO - 1
+[ 2023-07-08 15:06:19,246] 113 root - INFO -                             acc_x     acc_y     acc_z     gyr_x     gyr_y     gyr_z participants category label   set
+epoch (ms)                                                                                                           
+1970-01-01 00:25:47.200 -0.128235  0.645881  0.028304  0.982492 -1.958372  0.582183            E   medium  dead  73.0
+1970-01-01 00:25:47.400  0.007189 -0.022303  0.098703  0.668892 -2.070911  0.779008            C   medium  dead  44.0
+1970-01-01 00:25:47.600  0.088930 -0.543067  0.201999  0.939924 -2.036241  0.487862            E    heavy  dead  72.0
+1970-01-01 00:25:47.800  0.199233 -0.073985  0.156728  0.692600 -1.671748  1.101360            E   medium   row  91.0
+1970-01-01 00:25:48.000  0.273430 -0.748319  0.168288  0.641636 -1.519555  1.492413            E   medium   row  90.0
+[ 2023-07-08 15:06:19,263] 116 root - INFO - 5
+[ 2023-07-08 15:06:19,263] 117 root - INFO - Index(['acc_x', 'acc_y', 'acc_z', 'gyr_x', 'gyr_y', 'gyr_z', 'participants',
+       'category', 'label', 'set'],
+      dtype='object')

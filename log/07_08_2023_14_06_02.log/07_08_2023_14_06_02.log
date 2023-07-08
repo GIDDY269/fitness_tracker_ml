@@ -1,0 +1,25 @@
+[ 2023-07-08 14:06:03,741] 21 root - INFO - Initiating data ingestion
+[ 2023-07-08 14:06:03,741] 35 root - INFO - this file already exist
+[ 2023-07-08 14:06:03,741] 36 root - INFO - Unziping data
+[ 2023-07-08 14:06:04,143] 40 root - INFO - Unzip completed
+[ 2023-07-08 14:06:04,143] 24 root - INFO - initiating data_transformation
+[ 2023-07-08 14:06:04,147] 28 root - INFO - The total number of files : 187
+[ 2023-07-08 14:06:06,874] 66 root - INFO - created accelerometer and gyroscope dataframes
+[ 2023-07-08 14:06:06,890] 75 root - INFO - 69677
+[ 2023-07-08 14:06:06,907] 106 root - INFO - [                               acc_x  acc_y  acc_z   gyr_x  gyr_y  gyr_z participants category  label   set
+epoch (ms)                                                                                                 
+1970-01-01 00:25:47.219284950    NaN    NaN    NaN -10.671 -1.524  5.976            B    heavy  bench  30.0
+1970-01-01 00:25:47.219284990    NaN    NaN    NaN  -8.720 -2.073  3.171            B    heavy  bench  30.0
+1970-01-01 00:25:47.219285030    NaN    NaN    NaN   0.488 -3.537 -4.146            B    heavy  bench  30.0
+1970-01-01 00:25:47.219285070    NaN    NaN    NaN   0.244 -5.854  3.537            B    heavy  bench  30.0
+1970-01-01 00:25:47.219285110    NaN    NaN    NaN  -0.915  0.061 -2.805            B    heavy  bench  30.0
+...                              ...    ...    ...     ...    ...    ...          ...      ...    ...   ...
+1970-01-01 00:25:48.005713382 -0.060 -1.021 -0.058     NaN    NaN    NaN          NaN      NaN    NaN   NaN
+1970-01-01 00:25:48.005713462 -0.035 -1.037 -0.026     NaN    NaN    NaN          NaN      NaN    NaN   NaN
+1970-01-01 00:25:48.005713542 -0.045 -1.029 -0.033     NaN    NaN    NaN          NaN      NaN    NaN   NaN
+1970-01-01 00:25:48.005713622 -0.039 -1.027 -0.039     NaN    NaN    NaN          NaN      NaN    NaN   NaN
+1970-01-01 00:25:48.005713702 -0.049 -1.031 -0.049     NaN    NaN    NaN          NaN      NaN    NaN   NaN
+
+[69677 rows x 10 columns]]
+[ 2023-07-08 14:06:06,941] 111 root - INFO - resampling dataframe
+[ 2023-07-08 14:06:06,941] 112 root - INFO - 5

@@ -1,0 +1,10 @@
+[ 2023-07-08 14:21:54,933] 21 root - INFO - Initiating data ingestion
+[ 2023-07-08 14:21:54,933] 35 root - INFO - this file already exist
+[ 2023-07-08 14:21:54,933] 36 root - INFO - Unziping data
+[ 2023-07-08 14:21:55,322] 40 root - INFO - Unzip completed
+[ 2023-07-08 14:21:55,322] 24 root - INFO - initiating data_transformation
+[ 2023-07-08 14:21:55,325] 28 root - INFO - The total number of files : 187
+[ 2023-07-08 14:21:58,019] 66 root - INFO - created accelerometer and gyroscope dataframes
+[ 2023-07-08 14:21:58,053] 75 root - INFO - 69677
+[ 2023-07-08 14:21:58,069] 112 root - INFO - 0
+[ 2023-07-08 14:21:58,069] 113 root - INFO - RangeIndex(start=0, stop=0, step=1)
