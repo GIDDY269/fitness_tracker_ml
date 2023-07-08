@@ -80,9 +80,9 @@ class Data_transform:
                 'gyr_x',
                 'gyr_y',
                 'gyr_z',
-                'label',
+                'participants',
                 'category',
-                'participant',
+                'label',
                 'set'
             ]
 
@@ -95,9 +95,9 @@ class Data_transform:
                 'gyr_x': 'mean',
                 'gyr_y': 'mean',
                 'gyr_z': 'mean',
-                'label': 'last',
+                'participants': 'last',
                 'category': 'last',
-                'participant': 'last',
+                'label' : 'last',
                 'set' : 'last'
             }
 
@@ -113,4 +113,3 @@ class Data_transform:
         
         except Exception as e :
             raise CustomException(e,sys)
-
