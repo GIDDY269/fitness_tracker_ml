@@ -1,0 +1,30 @@
+[ 2023-07-04 18:41:58,384] 20 root - INFO - Initiating data ingestion
+[ 2023-07-04 18:42:00,624] 31 root - INFO - Downloaded artifacts/data.zip successfully with the fowwing info 
+ Connection: close
+Content-Length: 1311100
+Cache-Control: max-age=300
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+Content-Type: application/zip
+ETag: "b76d92f7d75dfcc7eca7621d07bae0f8083d75d5b6a95c054b84293112c8e46f"
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-GitHub-Request-Id: 8B58:124C:324B95A:3452AD3:64A459EE
+Accept-Ranges: bytes
+Date: Tue, 04 Jul 2023 17:42:06 GMT
+Via: 1.1 varnish
+X-Served-By: cache-par-lfpg1960085-PAR
+X-Cache: MISS
+X-Cache-Hits: 0
+X-Timer: S1688492527.671235,VS0,VE200
+Vary: Authorization,Accept-Encoding,Origin
+Access-Control-Allow-Origin: *
+Cross-Origin-Resource-Policy: cross-origin
+X-Fastly-Request-ID: a3a14ce73d21e3ae9953b14dc49a24add070079d
+Expires: Tue, 04 Jul 2023 17:47:06 GMT
+Source-Age: 0
+
+
+[ 2023-07-04 18:42:00,624] 35 root - INFO - Unziping data
+[ 2023-07-04 18:42:01,267] 39 root - INFO - Unzip completed

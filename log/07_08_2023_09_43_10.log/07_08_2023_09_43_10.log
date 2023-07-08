@@ -1,0 +1,6 @@
+[ 2023-07-08 09:43:11,395] 21 root - INFO - Initiating data ingestion
+[ 2023-07-08 09:43:11,396] 35 root - INFO - this file already exist
+[ 2023-07-08 09:43:11,396] 36 root - INFO - Unziping data
+[ 2023-07-08 09:43:11,705] 40 root - INFO - Unzip completed
+[ 2023-07-08 09:43:11,705] 24 root - INFO - initiating data_transformation
+[ 2023-07-08 09:43:11,706] 28 root - INFO - The total number of files : 187

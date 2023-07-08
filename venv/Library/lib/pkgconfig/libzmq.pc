@@ -1,0 +1,12 @@
+prefix=c:/Users/user/FITNESS_TRACKER/venv/Library
+exec_prefix=c:/Users/user/FITNESS_TRACKER/venv/Library
+libdir=c:/Users/user/FITNESS_TRACKER/venv/Library/lib
+includedir=c:/Users/user/FITNESS_TRACKER/venv/Library/include
+
+Name: libzmq
+Description: 0MQ c++ library
+Version: 4.3.4
+Libs: -L${libdir} -lzmq
+Libs.private: -lstdc++ 
+Requires.private: 
+Cflags: -I${includedir} 
