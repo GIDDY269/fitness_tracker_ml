@@ -17,7 +17,7 @@ import copy
 
 
 #plot outlier in time
-def plot_binary_outliers(dataset, col, outlier_col, reset_index,method):
+def plot_binary_outliers(dataset, col, outlier_col, reset_index):
     """ Plot outliers in case of a binary outlier score. Here, the col specifies the real data
     column and outlier_col the columns with a binary value (outlier or not).
 
@@ -61,8 +61,6 @@ def plot_binary_outliers(dataset, col, outlier_col, reset_index,method):
         fancybox=True,
         shadow=True,
     );
-    os.makedirs(f'../FITNESS_TRACKER/reports/{method}',exist_ok=True)
-    plt.savefig(f'../FITNESS_TRACKER/reports/{method}/{col}.png')
 
 
 def mark_outliers_chauvenet(dataset, col, C=2):

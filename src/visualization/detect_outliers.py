@@ -35,7 +35,9 @@ df[outlier_column[3:6] + ['label']].boxplot(by='label',figsize=[20,10],layout=[1
 #  plotting all the columns using interquartile range
 for col in outlier_column:
     dataset =  mark_outliers_iqr(df,col)
-    plot_binary_outliers(dataset=dataset, col=col, outlier_col=col+'_outlier', reset_index=True,method='IQR')
+    plot_binary_outliers(dataset=dataset, col=col, outlier_col=col+'_outlier', reset_index=True)
+    os.makedirs(f'../../reports/IQR',exist_ok=True)
+    plt.savefig(f'../../reports/IQR/{col}.png');
 
 # check for normal distribution
 df[outlier_column[:3] + ['label']].plot.hist(by='label',figsize=[20,20],layout=[3,3])
@@ -49,6 +51,8 @@ df[outlier_column[3:6] + ['label']].plot.hist(by='label',figsize=[20,20],layout=
 for col in outlier_column:
     dataset =  mark_outliers_chauvenet(df,col)
     plot_binary_outliers(dataset=dataset,col=col,outlier_col=col+'_outlier',reset_index=True)
+    os.makedirs(f'../../reports/chauvenet',exist_ok=True)
+    plt.savefig(f'../../reports/chauvenet/{col}.png');
 
 
 
@@ -56,6 +60,8 @@ for col in outlier_column:
 dataset, outliers, X_scores =  mark_outliers_lof(df,outlier_column)
 for col in outlier_column:
     plot_binary_outliers(dataset=dataset,col=col,outlier_col='outlier_lof',reset_index=True)
+    os.makedirs(f'../../reports/local outlier factor',exist_ok=True)
+    plt.savefig(f'../../reports/local outlier factor/{col}.png');
 
 
 # checking for outliers by labels for each column
