@@ -7,6 +7,7 @@ from src.exception import CustomException
 import urllib.request
 import zipfile
 from src.components.data_transformation import Data_transform
+from src.components.outlier_removal import outlier_removal
 
 @dataclass
 class Data_ingestion_config:
@@ -50,7 +51,10 @@ if __name__ == '__main__' :
     path = obj.initiate_data_ingestion()
 
     trans =  Data_transform()
-    trans.initiate_data_transform(path)
+    path = trans.initiate_data_transform(path)
+
+    out = outlier_removal()
+    out.initiate_outlier_removal(path)
 
 
             
