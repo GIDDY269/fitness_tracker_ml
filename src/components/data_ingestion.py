@@ -8,6 +8,7 @@ import urllib.request
 import zipfile
 from src.components.data_transformation import Data_transform
 from src.components.outlier_removal import outlier_removal
+from src.components.build_features import FEATURE_ENGINEERING
 
 @dataclass
 class Data_ingestion_config:
@@ -54,7 +55,10 @@ if __name__ == '__main__' :
     path = trans.initiate_data_transform(path)
 
     out = outlier_removal()
-    out.initiate_outlier_removal(path)
+    path = out.initiate_outlier_removal(path)
+
+    feat = FEATURE_ENGINEERING()
+    feat.initiate_feature_engineering(path)
 
 
             

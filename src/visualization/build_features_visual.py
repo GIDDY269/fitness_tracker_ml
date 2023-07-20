@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import os
 import sys
 sys.path.append(r'C:\Users\user\FITNESS_TRACKER')
-from utils import LowPassFilter,PrincipalComponentAnalysis
-
+from utils import LowPassFilter,PrincipalComponentAnalysis,NumericalAbstraction,FourierTransformation
+from sklearn.cluster import KMeans
 
 # load the data
 
@@ -43,6 +43,7 @@ for s in df['set'].unique():
 
          
 df.groupby('category')['Duration'].mean()
+del df['Duration']
 
 
 # applying low pass filter
@@ -110,3 +111,99 @@ os.makedirs('../../reports/sum_of_squares',exist_ok=True)
 plt.savefig('../../reports/sum_of_squares/ acc_r and gyr_r plot.png')
 
 
+ ## ADDING ROLLING AVERAGE 
+
+df_temporal = df_squared.copy()
+NumAbs = NumericalAbstraction()
+
+predicitor_columns = predicitor_columns + ['acc_r','gyr_r']
+
+
+ws = int(1000/200)
+df_temporal_list = []
+for s in df_temporal['set'].unique():
+    subset = df_temporal[df_temporal['set']==s].copy()
+
+    for col in predicitor_columns:
+        subset = NumAbs.abstract_numerical(subset,[col],ws,'mean')
+        subset = NumAbs.abstract_numerical(subset,[col],ws,'std')
+    df_temporal_list.append(subset)
+
+df_temporal =  pd.concat(df_temporal_list)
+
+
+# frequency features using fast fourier transformation
+
+freq_df = df_temporal.copy().reset_index() # changing it to discrete index not time series
+fft = FourierTransformation()
+
+sr = int(1000/200)
+ws = int(2800/200) # average length of a repetition
+
+df_freq_list = []
+
+for s in freq_df['set'].unique():
+    print(f'Applying fourier transformation in set {s}')
+    subset = freq_df[freq_df['set'] == s].reset_index(drop=True).copy()
+    subset = fft.abstract_frequency(subset,predicitor_columns,ws,sr)
+    df_freq_list.append(subset)
+
+freq_df = pd.concat(df_freq_list).set_index('epoch (ms)',drop=True)
+
+# dealing with overllaping windows (columns are very correlated and could cause overfu=itting)
+
+freq_df.dropna(inplace=True) #drop missing values
+freq_df = freq_df[::2] # allowing 50% correlation between data
+
+
+
+# adding clusters \
+df_cluster = freq_df.copy()
+
+cluster_columns = ['acc_x','acc_y','acc_z']
+k_values = range(2,10)
+inertia = []
+
+for k in k_values:
+    subset = df_cluster[cluster_columns]
+    kmeans = KMeans(n_clusters=k,n_init=20,random_state=0)
+    cluster_labels = kmeans.fit_predict(subset)
+    inertia.append(kmeans.inertia_)
+
+plt.figure(figsize=[10,20])
+plt.plot(k_values,inertia)
+plt.xlabel('k')
+plt.ylabel('sum of squared distance');
+
+
+
+subset = df_cluster[cluster_columns]    
+kmeans = KMeans(n_clusters=5,n_init=20,random_state=0)
+df_cluster['cluster'] = kmeans.fit_predict(subset)
+
+# cluster plot
+fig = plt.figure(figsize=[35,35])
+ax = fig.add_subplot(projection='3d')
+for c in df_cluster['cluster'].unique():
+    subset = df_cluster[df_cluster['cluster'] == c]
+    ax.scatter(subset['acc_x'],subset['acc_y'],subset['acc_z'],label=c)
+ax.set_xlabel('x_axis')
+ax.set_ylabel('y_label')
+ax.set_zlabel('z_label')
+plt.legend()
+os.makedirs('../../reports/kmeans_cluster',exist_ok=True)
+plt.savefig('../../reports/kmeans_cluster/cluster_plot.png');
+
+
+# cluster plot
+fig = plt.figure(figsize=[35,35])
+ax = fig.add_subplot(projection='3d')
+for l in df_cluster['label'].unique():
+    subset = df_cluster[df_cluster['label'] == l]
+    ax.scatter(subset['acc_x'],subset['acc_y'],subset['acc_z'],label=l)
+ax.set_xlabel('x_axis')
+ax.set_ylabel('y_label')
+ax.set_zlabel('z_label')
+plt.legend()
+os.makedirs('../../reports/kmeans_cluster',exist_ok=True)
+plt.savefig('../../reports/kmeans_cluster/cluster_labelplot.png');  
