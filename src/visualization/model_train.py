@@ -110,6 +110,7 @@ score_df = pd.DataFrame()
 learner = ClassificationAlgorithms()
 
 for i,f in zip(range(len(possible_feature_set)),feature_name):
+    print(f'features set : {i}')
     selected_x_train = x_train[possible_feature_set[i]]
     selected_x_test = x_test[possible_feature_set[i]]
 
@@ -128,7 +129,7 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
             class_train_proba_y,
             class_test_proba_y
         ) = learner.feedforward_neural_network(
-            selected_x_train,y_train,selected_x_test,gridsearch=False
+            selected_x_train,y_train,selected_x_test,gridsearch=False,print_model_details=True
         )
 
         performance_test_nn += accuracy_score(y_test,class_test_y)
@@ -141,7 +142,7 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
             class_train_proba_y,
             class_test_proba_y
         ) = learner.random_forest(
-            selected_x_train,y_train,selected_x_test
+            selected_x_train,y_train,selected_x_test,print_model_details=True
         )
 
         performance_test_rf += accuracy_score(y_test,class_test_y)
@@ -174,7 +175,7 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
         class_train_prob_y,
         class_test_prob_y,
     ) = learner.decision_tree(
-        selected_x_train, y_train, selected_x_test, gridsearch=True
+        selected_x_train, y_train, selected_x_test, gridsearch=True,print_model_details=True
     )
     performance_test_dt = accuracy_score(y_test, class_test_y)
 
@@ -216,3 +217,4 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
 
 
 
+   

@@ -1,0 +1,31 @@
+stages:
+  data_ingestion:
+    cmd : python src/components/data_ingestion.py
+    deps:
+    - src/components/data_ingestion.py
+    outs:
+    - artifacts/data.zip
+    - artifacts/MetaMotion
+    - artifacts/__MACOSX
+  data_transformation:
+    cmd : python src/components/data_transformation.py
+    deps :
+    - artifacts/MetaMotion
+    - src/components/data_transformation.py
+    outs:
+    - artifacts/transformed_data.pkl
+  outlier_removal:
+    cmd : python src/components/outlier_removal.py
+    deps: 
+    - artifacts/transformed_data.pkl
+    - src/components/outlier_removal.py
+    outs:
+    - artifacts/outlier_removed_chauvenet.pkl
+  feature_engineering:
+    cmd: python src/components/build_features.py
+    deps:
+    - artifacts/outlier_removed_chauvenet.pkl
+    - src/components/build_features.py
+    outs:
+    - feature_engineered_data.pkl
+    
