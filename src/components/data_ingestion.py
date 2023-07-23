@@ -9,6 +9,7 @@ import zipfile
 from src.components.data_transformation import Data_transform
 from src.components.outlier_removal import outlier_removal
 from src.components.build_features import FEATURE_ENGINEERING
+from src.components.data_modeling import model_trainer
 
 @dataclass
 class Data_ingestion_config:
@@ -58,7 +59,10 @@ if __name__ == '__main__' :
     path = out.initiate_outlier_removal(path)
 
     feat = FEATURE_ENGINEERING()
-    feat.initiate_feature_engineering(path)
+    path = feat.initiate_feature_engineering(path)
+
+    model = model_trainer()
+    model.initiate_model_trainer(path)
 
 
             

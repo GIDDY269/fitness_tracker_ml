@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import itertools
 from sklearn.metrics import accuracy_score, confusion_matrix
 from utils import ClassificationAlgorithms
-
+import seaborn as sns
 
 # Plot settings
 plt.style.use("fivethirtyeight")
@@ -127,9 +127,9 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
             class_train_y,
             class_test_y,
             class_train_proba_y,
-            class_test_proba_y
+            class_test_proba_y,nn
         ) = learner.feedforward_neural_network(
-            selected_x_train,y_train,selected_x_test,gridsearch=False,print_model_details=True
+            selected_x_train,y_train,selected_x_test,gridsearch=False
         )
 
         performance_test_nn += accuracy_score(y_test,class_test_y)
@@ -140,9 +140,9 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
             class_train_y,
             class_test_y,
             class_train_proba_y,
-            class_test_proba_y
+            class_test_proba_y,rf
         ) = learner.random_forest(
-            selected_x_train,y_train,selected_x_test,print_model_details=True
+            selected_x_train,y_train,selected_x_test
         )
 
         performance_test_rf += accuracy_score(y_test,class_test_y)
@@ -154,18 +154,19 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
     performance_test_rf = performance_test_rf / iterations
 
 
-    print('\t training knn')
+    #print('\t training knn')
+    #print(selected_x_train.info())
 
-    (
-        class_train_y,
-        class_test_y,
-        class_train_proba_y,
-        class_test_proba_y
-    ) = learner.k_nearest_neighbor(
-        selected_x_train,y_train,selected_x_test,gridsearch=True,print_model_details=True
-    )
 
-    performance_knn = accuracy_score(y_test,class_test_y)
+    #(
+     #   class_train_y,
+      # class_train_proba_y,
+       # class_test_proba_y
+    #) = learner.k_nearest_neighbor(
+        #selected_x_train,y_train,selected_x_test,gridsearch=True
+    #)
+
+    #performance_knn = accuracy_score(y_test,class_test_y)
 
 
     print("\tTraining decision tree")
@@ -173,9 +174,9 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
         class_train_y,
         class_test_y,
         class_train_prob_y,
-        class_test_prob_y,
+        class_test_prob_y,dtree
     ) = learner.decision_tree(
-        selected_x_train, y_train, selected_x_test, gridsearch=True,print_model_details=True
+        selected_x_train, y_train, selected_x_test, gridsearch=True
     )
     performance_test_dt = accuracy_score(y_test, class_test_y)
 
@@ -185,14 +186,14 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
         class_train_y,
         class_test_y,
         class_train_prob_y,
-        class_test_prob_y,
+        class_test_prob_y,nb
     ) = learner.naive_bayes(selected_x_train, y_train, selected_x_test)
 
     performance_test_nb = accuracy_score(y_test, class_test_y)
 
 
     # Save results to dataframe
-    models = ["NN", "RF", "KNN", "DT", "NB"]
+    models = ["NN", "RF", "DT", "NB"]
     new_scores = pd.DataFrame(
         {
             "model": models,
@@ -200,7 +201,7 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
             "accuracy": [
                 performance_test_nn,
                 performance_test_rf,
-                performance_knn,
+                #performance_knn,
                 performance_test_dt,
                 performance_test_nb,
             ],
@@ -209,6 +210,65 @@ for i,f in zip(range(len(possible_feature_set)),feature_name):
     score_df = pd.concat([score_df, new_scores]).sort_values(by='accuracy',ascending=False).reset_index(drop=True)
 
 
+# selecting best model
+
+(
+    class_train_y,
+    class_test_y,
+    class_train_prob_y,
+    class_test_prob_y,rf
+) = learner.random_forest(
+    x_train[feature_set_4],y_train,x_test[feature_set_4],gridsearch=True
+)
+
+accuracy = accuracy_score(y_test,class_test_y)
+classes = class_test_prob_y.columns
+cm = confusion_matrix(y_test,class_test_y)
+
+plt.figure(figsize=[30,16])
+plt.title('confusion matrix')
+sns.heatmap(cm,annot=True,fmt='1',xticklabels=classes,yticklabels=classes)
+plt.xlabel('Predicted labels')
+plt.ylabel('True labels')
+os.makedirs('../../report#s/confusion matrix')
+plt.savefig('../../reports/confusion matrix/confusion plot.png')
+
+
+# sellect train and test split based on participants
+
+participant_df = df.drop(['set','category'],axis=1)
+participant_df.columns
+x_train = participant_df[participant_df['participants'] != 'A'].drop('label',axis=1)
+y_train = participant_df[participant_df['participants'] != 'A']['label']
+
+
+x_test = participant_df[participant_df['participants'] == 'A'].drop('label',axis=1)
+y_test = participant_df[participant_df['participants'] == 'A']['label']
+
+x_train = x_train.drop('participants',axis=1)
+x_test = x_test.drop('participants',axis=1)
+
+
+(
+    class_train_y,
+    class_test_y,
+    class_train_prob_y,
+    class_test_prob_y,rf
+) = learner.random_forest(
+    x_train[feature_set_4],y_train,x_test[feature_set_4],gridsearch=True
+)
+
+accuracy = accuracy_score(y_test,class_test_y)
+classes = class_test_prob_y.columns
+cm = confusion_matrix(y_test,class_test_y)
+
+plt.figure(figsize=[30,16])
+plt.title('confusion matrix')
+sns.heatmap(cm,annot=True,fmt='1',xticklabels=classes,yticklabels=classes)
+plt.xlabel('Predicted labels')
+plt.ylabel('True labels')
+os.makedirs('../../report#s/confusion matrix')
+plt.savefig('../../reports/confusion matrix/confusion plot participants.png')
 
 
 

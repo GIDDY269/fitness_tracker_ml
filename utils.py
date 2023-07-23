@@ -380,7 +380,7 @@ class ClassificationAlgorithms:
         frame_prob_training_y = pd.DataFrame(pred_prob_training_y, columns=nn.classes_)
         frame_prob_test_y = pd.DataFrame(pred_prob_test_y, columns=nn.classes_)
 
-        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y
+        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y,nn
 
     # Apply a support vector machine for classification upon the training data (with the specified value for
     # C, epsilon and the kernel function), and use the created model to predict the outcome for both the
@@ -426,7 +426,7 @@ class ClassificationAlgorithms:
         frame_prob_training_y = pd.DataFrame(pred_prob_training_y, columns=svm.classes_)
         frame_prob_test_y = pd.DataFrame(pred_prob_test_y, columns=svm.classes_)
 
-        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y
+        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y,svm
 
     # Apply a support vector machine for classification upon the training data (with the specified value for
     # C, epsilon and the kernel function), and use the created model to predict the outcome for both the
@@ -476,7 +476,7 @@ class ClassificationAlgorithms:
         frame_prob_training_y = pd.DataFrame(pred_prob_training_y, columns=svm.classes_)
         frame_prob_test_y = pd.DataFrame(pred_prob_test_y, columns=svm.classes_)
 
-        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y
+        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y,svm
 
     # Apply a nearest neighbor approach for classification upon the training data (with the specified value for
     # k), and use the created model to predict the outcome for both the
@@ -517,7 +517,7 @@ class ClassificationAlgorithms:
         frame_prob_training_y = pd.DataFrame(pred_prob_training_y, columns=knn.classes_)
         frame_prob_test_y = pd.DataFrame(pred_prob_test_y, columns=knn.classes_)
 
-        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y
+        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y,knn
 
     # Apply a decision tree approach for classification upon the training data (with the specified value for
     # the minimum samples in the leaf, and the export path and files if print_model_details=True)
@@ -597,7 +597,7 @@ class ClassificationAlgorithms:
                 class_names=dtree.classes_,
             )
 
-        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y
+        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y,dtree
 
     # Apply a naive bayes approach for classification upon the training data
     # and use the created model to predict the outcome for both the
@@ -618,7 +618,7 @@ class ClassificationAlgorithms:
         frame_prob_training_y = pd.DataFrame(pred_prob_training_y, columns=nb.classes_)
         frame_prob_test_y = pd.DataFrame(pred_prob_test_y, columns=nb.classes_)
 
-        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y
+        return pred_training_y, pred_test_y, frame_prob_training_y, frame_prob_test_y,nb
 
     # Apply a random forest approach for classification upon the training data (with the specified value for
     # the minimum samples in the leaf, the number of trees, and if we should print some of the details of the
@@ -693,7 +693,7 @@ class ClassificationAlgorithms:
             pred_training_y,
             pred_test_y,
             frame_prob_training_y,
-            frame_prob_test_y,
+            frame_prob_test_y,rf
         )
 
 
