@@ -48,22 +48,6 @@ class Data_ingestion:
             raise CustomException(e,sys)
         
 
-if __name__ == '__main__' :
-    obj = Data_ingestion()
-    path = obj.initiate_data_ingestion()
-
-    trans =  Data_transform()
-    path = trans.initiate_data_transform(path)
-
-    out = outlier_removal()
-    path = out.initiate_outlier_removal(path)
-
-    feat = FEATURE_ENGINEERING()
-    path = feat.initiate_feature_engineering(path)
-
-    model = model_trainer()
-    model.initiate_model_trainer(path)
-
 
             
 
