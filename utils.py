@@ -21,6 +21,10 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
+import yaml
+
+with open('params.yaml', 'r') as yaml_file:
+    params = yaml.safe_load(yaml_file)
 
 
 
@@ -493,7 +497,7 @@ class ClassificationAlgorithms:
     ):
         # Create the model
         if gridsearch:
-            tuned_parameters = [{"n_neighbors": [1, 2, 5, 10]}]
+            tuned_parameters = [{"n_neighbors": params['k_nearest_neighbours']['n_neighbours']}]
             knn = GridSearchCV(
                 KNeighborsClassifier(), tuned_parameters, cv=5, scoring="accuracy"
             )
@@ -540,8 +544,8 @@ class ClassificationAlgorithms:
         if gridsearch:
             tuned_parameters = [
                 {
-                    "min_samples_leaf": [2, 10, 50, 100, 200],
-                    "criterion": ["gini", "entropy"],
+                    "min_samples_leaf": params['decision_tree']['min_samples_leaf'],
+                    "criterion": params['decision_tree']['criterion'],
                 }
             ]
             dtree = GridSearchCV(
@@ -640,9 +644,9 @@ class ClassificationAlgorithms:
         if gridsearch:
             tuned_parameters = [
                 {
-                    "min_samples_leaf": [2, 10, 50, 100, 200],
-                    "n_estimators": [10, 50, 100],
-                    "criterion": ["gini", "entropy"],
+                    "min_samples_leaf": params['random_forest']['min_samples_leaf'],
+                    "n_estimators": params['random_forest']['n_estimators'],
+                    "criterion": params['random_forest']['criterion'],
                 }
             ]
             rf = GridSearchCV(

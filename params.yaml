@@ -1,0 +1,11 @@
+random_forest:
+  min_samples_leaf :  [2, 10, 50, 100, 200]
+  n_estimators:  [10, 50, 100]
+  criterion: ["gini", "entropy"]
+
+decision_tree:
+  min_samples_leaf: [2, 10, 50, 100, 200]
+  criterion: ["gini", "entropy"]
+
+k_nearest_neighbours:
+  n_neighbours : [1, 2, 5, 10]

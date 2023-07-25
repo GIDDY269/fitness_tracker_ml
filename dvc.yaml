@@ -1,21 +1,21 @@
 stages:
   data_ingestion:
-    cmd : python src/components/data_ingestion.py
+    cmd: python src\components\data_ingestion.py
     deps:
-    - src/components/data_ingestion.py
+    - src\components\data_ingestion.py
     outs:
-    - artifacts/data.zip
-    - artifacts/MetaMotion
     - artifacts/__MACOSX
+    - artifacts/MetaMotion
+    - artifacts/data.zip
   data_transformation:
-    cmd : python src/components/data_transformation.py
+    cmd: python src/components/data_transformation.py
     deps :
     - artifacts/MetaMotion
     - src/components/data_transformation.py
     outs:
     - artifacts/transformed_data.pkl
   outlier_removal:
-    cmd : python src/components/outlier_removal.py
+    cmd: python src/components/outlier_removal.py
     deps: 
     - artifacts/transformed_data.pkl
     - src/components/outlier_removal.py
@@ -27,5 +27,20 @@ stages:
     - artifacts/outlier_removed_chauvenet.pkl
     - src/components/build_features.py
     outs:
-    - feature_engineered_data.pkl
+    - artifacts/feature_engineered_data.pkl
+  data_modelling:
+    cmd: python src/components/data_modeling.py
+    deps:
+    - src/components/data_modeling.py
+    - artifacts/feature_engineered_data.pkl
+    params:
+    - params['random_forest']['min_samples_leaf']
+    - params['random_forest']['n_estimators']
+    - params['random_forest']['criterion']
+    outs:
+    - artifacts/fitness_tracker.joblib
+    metrics:
+    - model_metrics.json
+
+
     
