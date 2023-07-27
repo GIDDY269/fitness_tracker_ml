@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import sys
+sys.path.append(r'C:\Users\user\FITNESS_TRACKER')
 from utils import LowPassFilter,PrincipalComponentAnalysis,FourierTransformation,NumericalAbstraction
 from sklearn.cluster import KMeans
 from dataclasses import dataclass
@@ -18,11 +19,12 @@ class FEATURE_ENGINEERING:
     def __init__(self) :
         self.feature_config = FeatureEngineerin_config()
 
-    def initiate_feature_engineering(self,datapath):
+    def initiate_feature_engineering(self):
         try:
             logging.info('initiating feature engineering')
+            data_path = 'artifacts/outlier_removed_chauvenet.pkl'
 
-            df = pd.read_pickle(datapath)
+            df = pd.read_pickle(data_path)
 
             predicitor_columns = list(df.columns[:6])
     
@@ -123,13 +125,14 @@ class FEATURE_ENGINEERING:
 
             pd.to_pickle(obj=df_cluster,filepath_or_buffer=self.feature_config.feature_datapath)
 
-            return self.feature_config.feature_datapath
         except Exception as e:
             raise CustomException(e,sys)
 
 
 
-
+if __name__=='__main__':
+    obj = FEATURE_ENGINEERING()
+    obj.initiate_feature_engineering()
 
 
 

@@ -1,0 +1,108 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src\components\data_ingestion.py
+    deps:
+    - path: src\components\data_ingestion.py
+      hash: md5
+      md5: 1e6c45046398a75cedd250b9993c3f4f
+      size: 1451
+    outs:
+    - path: artifacts/MetaMotion
+      hash: md5
+      md5: 45732a83275a4045dd1b7b5a8c229a14.dir
+      size: 4563677
+      nfiles: 187
+    - path: artifacts/__MACOSX
+      hash: md5
+      md5: dbcd77771e083730f97935d2e8246dd3.dir
+      size: 33452
+      nfiles: 188
+    - path: artifacts/data.zip
+      hash: md5
+      md5: 360e1969cd28d7c67dfff2776a67ea37
+      size: 1311100
+  data_transformation:
+    cmd: python src/components/data_transformation.py
+    deps:
+    - path: artifacts/MetaMotion
+      hash: md5
+      md5: 45732a83275a4045dd1b7b5a8c229a14.dir
+      size: 4563677
+      nfiles: 187
+    - path: src/components/data_transformation.py
+      hash: md5
+      md5: 24f741c8a7311f04dc5bc6851bc139c0
+      size: 4951
+    outs:
+    - path: artifacts/transformed_data.pkl
+      hash: md5
+      md5: 3e32057774ac0a1cd2c62f72729994e6
+      size: 596934
+  outlier_removal:
+    cmd: python src/components/outlier_removal.py
+    deps:
+    - path: artifacts/transformed_data.pkl
+      hash: md5
+      md5: 3e32057774ac0a1cd2c62f72729994e6
+      size: 596934
+    - path: src/components/outlier_removal.py
+      hash: md5
+      md5: 29b69b98d47c6cce4a909c3b72b3336f
+      size: 2002
+    outs:
+    - path: artifacts/outlier_removed_chauvenet.pkl
+      hash: md5
+      md5: 73525da07c363d871018b2d068220d80
+      size: 596968
+  feature_engineering:
+    cmd: python src/components/build_features.py
+    deps:
+    - path: artifacts/outlier_removed_chauvenet.pkl
+      hash: md5
+      md5: 73525da07c363d871018b2d068220d80
+      size: 596968
+    - path: src/components/build_features.py
+      hash: md5
+      md5: 1f4dbbc44c22d8c49a1d8e1593db3e4b
+      size: 4519
+    outs:
+    - path: artifacts/feature_engineered_data.pkl
+      hash: md5
+      md5: 66995f4c43999de97f667cfccfc5b2b4
+      size: 3649549
+  data_modeling:
+    cmd: python src/components/data_modeling.py
+    deps:
+    - path: artifacts/feature_engineered_data.pkl
+      hash: md5
+      md5: 66995f4c43999de97f667cfccfc5b2b4
+      size: 3649549
+    - path: src/components/data_modeling.py
+      hash: md5
+      md5: 8f8c2690433407256fdf74906dec37d2
+      size: 2708
+    params:
+      params.yaml:
+        random_forest.criterion:
+        - gini
+        - entropy
+        random_forest.min_samples_leaf:
+        - 2
+        - 10
+        - 50
+        - 100
+        - 200
+        random_forest.n_estimators:
+        - 10
+        - 50
+        - 100
+    outs:
+    - path: artifacts/fitness_tracker.joblib
+      hash: md5
+      md5: 8e4259ca86dd61da6e85771b11ce9896
+      size: 1621369
+    - path: model_metrics.json
+      hash: md5
+      md5: 042ae8de3a4f8cae52b3ce89d7c5bb9b
+      size: 32

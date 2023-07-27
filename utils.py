@@ -637,7 +637,7 @@ class ClassificationAlgorithms:
         n_estimators=10,
         min_samples_leaf=5,
         criterion="gini",
-        print_model_details=False,
+        print_model_details=True,
         gridsearch=True,
     ):
 

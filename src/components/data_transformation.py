@@ -18,12 +18,15 @@ class Data_transform:
     def __init__(self) :
         self.transform_config = Data_transform_config()
 
-    def initiate_data_transform(self , data_filepath):
+    def initiate_data_transform(self):
         try:
 
             logging.info('initiating data_transformation')
+            # read the data
+
+            data_filepath = '../../artifacts/MetaMotion'
         
-            data_files = glob(data_filepath)
+            data_files = glob('C:/Users/user/FITNESS_TRACKER/artifacts/MetaMotion/*csv')      
 
             logging.info(f'The total number of files : {len(data_files)}')
 
@@ -35,10 +38,8 @@ class Data_transform:
             acc_set = 1
             gyr_set = 1
 
-            
-
             for f in data_files:
-                participants = f.split('-')[0].lstrip('../../artifacts/MetaMotion/').split('\\')[2]
+                participants = f.split('-')[0].lstrip('../../artifacts/MetaMotion\\')[-1]
                 category = f.split('-')[2].rstrip('123').rstrip('_MetaWear_2019') 
                 label = f.split('-')[1]
 
@@ -61,7 +62,7 @@ class Data_transform:
                     gyr_df = pd.concat([gyr_df,df])
                 
 
-
+            logging.info(acc_df.columns)
             # converting time columns to datetime
             acc_df.index = pd.to_datetime(acc_df['epoch (ms)'],unit='ms') # converting unix time to datetime and seting it as index
             gyr_df.index = pd.to_datetime(gyr_df['epoch (ms)'],unit='ms')
@@ -132,11 +133,15 @@ class Data_transform:
             logging.info(data_resample.columns)
 
             data_resample['set'] = data_resample['set'].astype('int')
-            data_resample.to_pickle('artifacts/transformed_data.pkl')
+            data_resample.to_pickle(self.transform_config.transformed_datapath)
 
             logging.info('data transformation and processing complete')
-
-            return self.transform_config.transformed_datapath
+    
         
         except Exception as e :
             raise CustomException(e,sys)
+
+
+if __name__ == '__main__':
+    obj = Data_transform()
+    obj.initiate_data_transform()

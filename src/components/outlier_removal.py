@@ -17,11 +17,12 @@ class outlier_removal:
     def __init__(self):
         self.outlier_filepath = outlier_removal_config()
 
-    def initiate_outlier_removal(self,df):
+    def initiate_outlier_removal(self):
         try:
             logging.info('initiating outlier removal using chauvenet')
             # create a for loop to deal with outliers
-            df = pd.read_pickle(df)
+            data_path = 'artifacts/transformed_data.pkl'
+            df = pd.read_pickle(data_path)
             outlier_column = df.columns[:6]
             outliers_remove_df = df.copy()
 
@@ -43,7 +44,10 @@ class outlier_removal:
             # exporting data        
             pd.to_pickle(obj=outliers_remove_df,filepath_or_buffer=self.outlier_filepath.outlier_removed_datapath)
 
-            return self.outlier_filepath.outlier_removed_datapath
         
         except Exception as e :
             raise CustomException(e,sys)
+
+if __name__ == '__main__':
+    obj = outlier_removal()
+    obj.initiate_outlier_removal()

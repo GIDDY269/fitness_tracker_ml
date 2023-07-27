@@ -2,7 +2,7 @@ import  pandas as pd
 import numpy as np
 import os
 import sys 
-sys.path.append('../../')
+sys.path.append(r'C:\Users\user\FITNESS_TRACKER')
 from dataclasses import dataclass
 from src.exception import CustomException
 from src.logger import logging
@@ -23,10 +23,12 @@ class model_trainer:
     def __init__(self):
         self.model_trainer_config = model_trainer_config()
 
-    def initiate_model_trainer(self,datapath):
+    def initiate_model_trainer(self):
 
         try:
             logging.info('initiating model trainer')
+
+            datapath = 'artifacts/feature_engineered_data.pkl'
 
             learner = ClassificationAlgorithms()
 
@@ -78,3 +80,6 @@ class model_trainer:
         except Exception as e:
             raise CustomException(e,sys)
 
+if __name__ == '__main__':
+    obj = model_trainer()
+    obj.initiate_model_trainer()

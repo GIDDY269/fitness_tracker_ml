@@ -28,15 +28,15 @@ stages:
     - src/components/build_features.py
     outs:
     - artifacts/feature_engineered_data.pkl
-  data_modelling:
+  data_modeling:
     cmd: python src/components/data_modeling.py
     deps:
     - src/components/data_modeling.py
     - artifacts/feature_engineered_data.pkl
     params:
-    - params['random_forest']['min_samples_leaf']
-    - params['random_forest']['n_estimators']
-    - params['random_forest']['criterion']
+    - random_forest.min_samples_leaf
+    - random_forest.n_estimators
+    - random_forest.criterion
     outs:
     - artifacts/fitness_tracker.joblib
     metrics:

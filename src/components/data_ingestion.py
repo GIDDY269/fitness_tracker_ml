@@ -1,23 +1,14 @@
 import sys
 sys.path.append(r'C:\Users\user\FITNESS_TRACKER')
 import os
-from dataclasses import dataclass
 from src.logger import logging
 from src.exception import CustomException
 import urllib.request
 import zipfile
-from src.components.data_transformation import Data_transform
-from src.components.outlier_removal import outlier_removal
-from src.components.build_features import FEATURE_ENGINEERING
-from src.components.data_modeling import model_trainer
 
-@dataclass
-class Data_ingestion_config:
-    ingested_data_filepath = os.path.join('artifacts','MetaMotion/*csv')
+
 
 class Data_ingestion:
-    def __init__(self):
-        self.data_ingestion_config = Data_ingestion_config()
 
     def initiate_data_ingestion(self):
         try:
@@ -42,7 +33,6 @@ class Data_ingestion:
                 zip_rep.extractall(unzip_path)
             logging.info('Unzip completed')
 
-            return self.data_ingestion_config.ingested_data_filepath
 
         except Exception as e :
             raise CustomException(e,sys)

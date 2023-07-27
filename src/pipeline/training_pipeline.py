@@ -25,7 +25,7 @@ try:
     # transform data and preprocessing
 
     preprocess = Data_transform()
-    transfromed_data = preprocess.initiate_data_transform(ingested_data)
+    transfromed_data = preprocess.initiate_data_transform()
 
 
     stage_name = 'OUTLIER REMOVAL'
@@ -33,7 +33,7 @@ try:
     print(f'Current stage : {stage_name}')
     # removing outliers
     outlier = outlier_removal()
-    outliers_removed_data = outlier.initiate_outlier_removal(transfromed_data)
+    outliers_removed_data = outlier.initiate_outlier_removal()
 
 
     stage_name = 'FEATURE ENGINEERING'
@@ -42,7 +42,7 @@ try:
     # perform feature engineering
 
     feature = FEATURE_ENGINEERING()
-    featured_data = feature.initiate_feature_engineering(outliers_removed_data)
+    featured_data = feature.initiate_feature_engineering()
 
 
     stage_name = 'DATA MODELLING'
@@ -51,7 +51,7 @@ try:
 
     model = model_trainer()
 
-    model.initiate_model_trainer(featured_data)
+    model.initiate_model_trainer()
 except Exception as e:
     raise CustomException(e,sys)
 
