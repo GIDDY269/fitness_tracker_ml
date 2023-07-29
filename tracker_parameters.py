@@ -1,11 +1,12 @@
 from pydantic import BaseModel
-from datetime  import datetime
+from fastapi import UploadFile,File
+import pandas as pd
 
-class tracker_params(BaseModel):
-    timestamp : datetime
-    acc_x : float
-    acc_y : float
-    acc_z : float
-    gyr_x : float
-    gyr_y : float
-    gyr_z : float
+
+class SensorData(BaseModel):
+
+    gyroscope :  UploadFile = File(..., description= 'Gyroscope csv file')
+    accelerometer : UploadFile = File(..., description= 'Accelerometer cvs file')
+    
+
+    
