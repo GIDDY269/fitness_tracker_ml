@@ -38,14 +38,40 @@
 The fitness tracker leverage the power of machine learning techniques to classify various excercises the users is performing at various point in time.The core functionality of our model lies in its ability to recognize and categorize various exercises, including bench press, deadlift, row, squat, overhead press. This comprehensive exercise repertoire ensures that users can track their entire workout routine effortlessly. 
 
 ## Project structure
-- Artifacts: This folder contains the ingested data and all the files generated from preprocesssing the data and the model files after training
-- .github/workflows: This contains the ci/cd pipeline yaml file for deployment in aws EC2 instance
-- log: contains the log files throughout the project
-- report: Contains all the plot during the experiments
-- src:  This directory containings two folders;
-      - components: 
-                  - Data ingestion: Downloads the data from source into local machine and unzips it
-                  - Data transformation: Merge the all the csv data files together and perform some preprocessing techniques
+- Artifacts
+- .github/workflows
+- log
+- report 
+- src
+  - components
+    - Data ingestion
+    - Data transformation
+    - outlier removal 
+    - build features
+    - data modeling
+  - pipeline
+    - training pipeline
+    - predict pipeline
+  - visualization/experiments
+    - visualize
+    - detect outliers
+    - build features
+    - model train
+  - exception
+  - logger
+- venv
+- .gitignore
+- app
+- Dockerfile
+- dvc.lock
+- dvc.yaml
+- model_metrics.json
+- params.yaml
+- requirements
+- setup
+- utils
+
+     
 
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
