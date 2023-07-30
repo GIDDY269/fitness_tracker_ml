@@ -39,7 +39,7 @@ The fitness tracker leverage the power of machine learning techniques to classif
 
 ## Project structure
 =========================================================
-**Artifacts:** This folder contains the ingested data and all the files generated from preprocesssing the data and the model files after training
+*Artifacts:* This folder contains the ingested data and all the files generated from preprocesssing the data and the model files after training
 **.github/workflows:** This contains the ci/cd pipeline yaml file for deployment in aws EC2 instance
 **log:** contains the log files throughout the project
 **report:** Contains all the plot during the experiments
@@ -47,7 +47,7 @@ The fitness tracker leverage the power of machine learning techniques to classif
       **components:** 
                   **Data ingestion:** Downloads the data from source into local machine and unzips it
                   **Data transformation:** Merge the all the csv data files together and perform some preprocessing techniques
-                  
+
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
