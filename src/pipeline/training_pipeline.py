@@ -1,6 +1,7 @@
 import os
 import sys
 sys.path.append(r'C:\Users\user\FITNESS_TRACKER')
+import pandas as pd
 from src.exception import CustomException
 from src.components.data_ingestion import Data_ingestion
 from src.components.data_transformation import Data_transform
