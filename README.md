@@ -108,7 +108,7 @@ git clone git@github.com:GIDDY269/fitness_tracker_ml.git
 conda create -p venv python==3.9 -y
 ```
 
-* __install the dependcies:__
+* __install the dependencies:__
 ```
 pip install -r requirements.txt
 ```
