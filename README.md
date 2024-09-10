@@ -34,6 +34,8 @@
 
 The fitness tracker leverage the power of machine learning techniques to classify various excercises the users is performing at various point in time.The core functionality of our model lies in its ability to recognize and categorize various exercises, including bench press, deadlift, row, squat, overhead press. This comprehensive exercise repertoire ensures that users can track their entire workout routine effortlessly. 
 
+video link of the project : https://x.com/oboro_gideon/status/1685775882269368320?t=ZV1XoVVWB0S8t33UANW5KQ&s=19
+
 ## Data
 The model was trained with both accelerometer and gyroscope data collected over a period of time with five different participants performing  all the various excercises both medium and heavy sets using the sensors in a fitness watch.
 
